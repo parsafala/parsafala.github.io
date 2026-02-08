@@ -1,16 +1,39 @@
 function updateAge() {
-  // Birth: August 19, 2008, 4:05 PM Tehran time (UTC +3:30)
-  const birthDateUTC = Date.UTC(2008, 7, 19, 12, 35);
-  // Explanation:
-  // 16:05 Tehran = 12:35 UTC
+  // Birth: August 19, 2008, 16:05 Tehran time (UTC +3:30)
+  const birth = new Date(Date.UTC(2008, 7, 19, 12, 35, 0));
 
-  const now = new Date().getTime();
-  const ageMs = now - birthDateUTC;
+  const now = new Date();
 
-  const ageYears = ageMs / (1000 * 60 * 60 * 24 * 365.2422);
+  let years = now.getUTCFullYear() - birth.getUTCFullYear();
+  let months = now.getUTCMonth() - birth.getUTCMonth();
+  let days = now.getUTCDate() - birth.getUTCDate();
+  let hours = now.getUTCHours() - birth.getUTCHours();
+  let seconds = now.getUTCSeconds() - birth.getUTCSeconds();
 
-  document.getElementById("age").textContent = ageYears.toFixed(9);
+  if (seconds < 0) {
+    seconds += 60;
+    hours--;
+  }
+
+  if (hours < 0) {
+    hours += 24;
+    days--;
+  }
+
+  if (days < 0) {
+    const prevMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0));
+    days += prevMonth.getUTCDate();
+    months--;
+  }
+
+  if (months < 0) {
+    months += 12;
+    years--;
+  }
+
+  document.getElementById("age").textContent =
+    `${years} years, ${months} months, ${days} days, ${hours} hours, ${seconds} seconds old`;
 }
 
 updateAge();
-setInterval(updateAge, 100);
+setInterval(updateAge, 1000);
