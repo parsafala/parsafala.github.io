@@ -8,10 +8,16 @@ function updateAge() {
   let months = now.getUTCMonth() - birth.getUTCMonth();
   let days = now.getUTCDate() - birth.getUTCDate();
   let hours = now.getUTCHours() - birth.getUTCHours();
+  let minutes = now.getUTCMinutes() - birth.getUTCMinutes();
   let seconds = now.getUTCSeconds() - birth.getUTCSeconds();
 
   if (seconds < 0) {
     seconds += 60;
+    minutes--;
+  }
+
+  if (minutes < 0) {
+    minutes += 60;
     hours--;
   }
 
@@ -32,7 +38,7 @@ function updateAge() {
   }
 
   document.getElementById("age").textContent =
-    `${years} years, ${months} months, ${days} days, ${hours} hours, ${seconds} seconds old`;
+    `${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds old`;
 }
 
 updateAge();
