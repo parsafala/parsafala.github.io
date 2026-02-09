@@ -4,6 +4,24 @@
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
+.site-header {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+}
+
+.logo {
+  height: 48px;
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
 
 body {
   background: #0f0f14;
