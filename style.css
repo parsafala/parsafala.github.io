@@ -4,20 +4,25 @@
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
+html, body {
+  margin: 0;
+  padding: 0;
+}
 .site-header {
   position: absolute;
-  top: 24px;
-  left: 24px;
+  top: 0;
+  left: 0;
   z-index: 100;
 }
-
 .logo {
-  height: 80px;
+  height: 96px;
+  max-height: 96px;
   width: auto;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
 
+  padding: 8px;       /* optional: remove if you want true edge-to-edge */
+
+  display: block;
+}
 .logo:hover {
   transform: scale(1.05);
   opacity: 0.9;
@@ -31,6 +36,7 @@ body {
 
 .hero {
   padding: 80px 20px 50px;
+  padding-top: 160px;
 }
 
 .hero-img {
