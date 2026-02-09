@@ -15,8 +15,8 @@ html, body {
   z-index: 100;
 }
 .logo {
-  height: 96px;
-  max-height: 96px;
+  height: 120px;
+  max-height: 120px;
   width: auto;
 
   padding: 8px;       /* optional: remove if you want true edge-to-edge */
@@ -36,7 +36,6 @@ body {
 
 .hero {
   padding: 80px 20px 50px;
-  padding-top: 160px;
 }
 
 .hero-img {
