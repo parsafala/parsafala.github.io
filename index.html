@@ -143,16 +143,11 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
+        .rotating-text {
+          transition: opacity 0.6s ease;
+          opacity: 1;
+        }
         /* Hero text */
-        #changing-text {
-    /* Smooth transition for opacity changes */
-        transition: opacity 0.5s ease-in-out; 
-        opacity: 1;
-        }
-        .fade-out {
-            opacity: 0;
-        }
         .hero-text {
             font-family: 'Lexend', sans-serif;
             font-size: clamp(48px, 10vw, 96px);
@@ -165,8 +160,6 @@
             letter-spacing: 1px;
             font-weight: 600;
             animation: slideUp 1s ease-out 0.4s backwards;
-            transition: opacity 0.5s ease-in-out; 
-            opacity: 1;
         }
 
         @keyframes slideUp {
@@ -376,7 +369,7 @@
             </div>
         </div>
 
-        <h1 class="hero-text"><span id="changing-text">creative</span></h1>
+        <h1 class="hero-text" class="rotating-text" id="rotatingText">Hi, I'm Parsa</h1>
 
         <div class="age-counter">
             <div class="time" id="age"></div>
@@ -433,32 +426,31 @@
     </div>
 
     <script>
-        const words = ["creative", "innovative", "strategic", "digital"];
-let index = 0;
-const span = document.getElementById('changing-text');
+        const texts = [
+    "Creative Developer",
+    "UI/UX Designer",
+    "Problem Solver",
+    "Based in Kuala Lumpur",
+    "17-Year-Old Builder"
+  ];
 
-function changeTextWithTransition() {
-    // Start fade out
-    span.classList.add('fade-out');
+  const element = document.getElementById("rotatingText");
+  let index = 0;
 
-    // Wait for the fade out to complete (adjust time to match CSS transition)
+  setInterval(() => {
+    // Fade out
+    element.style.opacity = 0;
+
     setTimeout(() => {
-        // Change the text content while it is invisible
-        span.textContent = words[index];
+      // Change text after fade out
+      index = (index + 1) % texts.length;
+      element.textContent = texts[index];
 
-        // Move to the next index and loop if necessary
-        index = (index + 1) % words.length; 
+      // Fade back in
+      element.style.opacity = 1;
+    }, 600); // Must match CSS transition time
 
-        // Start fade in
-        span.classList.remove('fade-out');
-    }, 500); // 500ms delay for the fade effect
-}
-
-// Call the function every 3 seconds (3000ms)
-setInterval(changeTextWithTransition, 3000);
-
-// Display the first word immediately
-changeTextWithTransition();
+  }, 3000);
 
 
         function calculateAge() {
