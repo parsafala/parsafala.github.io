@@ -366,7 +366,7 @@
             </div>
         </div>
 
-        <h1 class="hero-text">Hi, I'm Parsa</h1>
+        <h1 class="hero-text"><span id="changing-text">creative</span></h1>
 
         <div class="age-counter">
             <div class="time" id="age"></div>
@@ -423,6 +423,31 @@
     </div>
 
     <script>
+        const words = ["creative", "innovative", "strategic", "digital"];
+let index = 0;
+
+function changeText() {
+    const span = document.getElementById('changing-text');
+    if (span) {
+        // Update the text content to the next word in the array
+        span.textContent = words[index];
+        
+        // Move to the next index
+        index++;
+        
+        // If the index exceeds the array length, reset it to 0 to loop
+        if (index === words.length) {
+            index = 0;
+        }
+    }
+}
+
+// Call the changeText function every 3000 milliseconds (3 seconds)
+setInterval(changeText, 3000);
+
+// Optional: call the function immediately on page load to display the first word
+changeText(); 
+
         function calculateAge() {
             // Birth date: August 19, 2008 at 4:05 PM Tehran time (IRST/IRDT)
             // Tehran is UTC+3:30 (standard) or UTC+4:30 (daylight saving)
