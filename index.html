@@ -433,28 +433,31 @@
     <script>
         const words = ["creative", "innovative", "strategic", "digital"];
 let index = 0;
+const span = document.getElementById('changing-text');
 
-function changeText() {
-    const span = document.getElementById('changing-text');
-    if (span) {
-        // Update the text content to the next word in the array
+function changeTextWithTransition() {
+    // Start fade out
+    span.classList.add('fade-out');
+
+    // Wait for the fade out to complete (adjust time to match CSS transition)
+    setTimeout(() => {
+        // Change the text content while it is invisible
         span.textContent = words[index];
-        
-        // Move to the next index
-        index++;
-        
-        // If the index exceeds the array length, reset it to 0 to loop
-        if (index === words.length) {
-            index = 0;
-        }
-    }
+
+        // Move to the next index and loop if necessary
+        index = (index + 1) % words.length; 
+
+        // Start fade in
+        span.classList.remove('fade-out');
+    }, 500); // 500ms delay for the fade effect
 }
 
-// Call the changeText function every 3000 milliseconds (3 seconds)
-setInterval(changeText, 3000);
+// Call the function every 3 seconds (3000ms)
+setInterval(changeTextWithTransition, 3000);
 
-// Optional: call the function immediately on page load to display the first word
-changeText(); 
+// Display the first word immediately
+changeTextWithTransition();
+
 
         function calculateAge() {
             // Birth date: August 19, 2008 at 4:05 PM Tehran time (IRST/IRDT)
