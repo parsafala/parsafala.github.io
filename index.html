@@ -35,24 +35,13 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: calc(100vh - 100px);
             background-image: url('YOUR_IMAGE_URL_HERE');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: -1;
             pointer-events: none;
-        }
-
-        /* Gradient overlay to blend with rest of page */
-        .hero-background::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(to bottom, transparent 0%, #0B1929 100%);
         }
 
         /* Animated background */
@@ -66,7 +55,7 @@
             background: 
                 radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(111, 177, 252, 0.08) 0%, transparent 50%);
-            z-index: -1;
+            z-index: -2;
             animation: pulse 8s ease-in-out infinite;
         }
 
@@ -542,7 +531,7 @@
         }
 
         // Auto-advance every 5 seconds
-        let autoSlideInterval = setInterval(nextSlide, 5000);
+        let autoSlideInterval = setInterval(nextSlide, 4000);
 
         // Dot navigation
         dots.forEach((dot) => {
@@ -551,7 +540,7 @@
                 goToSlide(index);
                 // Reset auto-slide timer
                 clearInterval(autoSlideInterval);
-                autoSlideInterval = setInterval(nextSlide, 5000);
+                autoSlideInterval = setInterval(nextSlide, 4000);
             });
         });
 
