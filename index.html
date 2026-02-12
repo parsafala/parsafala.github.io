@@ -1,43 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parsa</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parsa - Personal Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --secondary: #1C2541;
+            --accent: #6FB1FC;
+            --text: #D4E2F4;
+            --bg: #0B1929;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background: linear-gradient(to top, #0B1929 0%, #1C2541 50%, #2A3F5F 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Hero background section */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url('YOUR_IMAGE_URL_HERE');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Gradient overlay to blend with rest of page */
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent 0%, #0B1929 100%);
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(111, 177, 252, 0.08) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lexend', sans-serif;
+            font-size: 42px;
+            color: var(--secondary);
+            font-weight: bold;
+            box-shadow: 0 8px 30px rgba(74, 144, 226, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+
+        /* Portrait */
+        .portrait-container {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: scaleIn 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .portrait {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            margin: 0 auto 30px;
+            position: relative;
+            box-shadow: 0 15px 50px rgba(111, 177, 252, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: var(--secondary);
+            border: 4px solid rgba(111, 177, 252, 0.15);
+        }
+
+        .portrait::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hero text */
+        .hero-text {
+            font-family: 'Lexend', sans-serif;
+            font-size: clamp(48px, 10vw, 96px);
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            font-weight: 600;
+            animation: slideUp 1s ease-out 0.4s backwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Age counter */
+        .age-counter {
+            text-align: center;
+            font-size: clamp(18px, 4vw, 24px);
+            margin-bottom: 60px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 2px solid rgba(111, 177, 252, 0.15);
+            backdrop-filter: blur(10px);
+            animation: slideUp 1s ease-out 0.6s backwards;
+        }
+
+        .age-counter .time {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--text);
+            font-weight: 300;
+        }
+
+        /* Navigation carousel */
+        .nav-carousel {
+            position: relative;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            overflow: hidden;
+            padding: 40px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 40px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .nav-card {
+            position: relative;
+            width: 100%;
+            max-width: 1050px;
+            aspect-ratio: 5 / 3;
+            flex-shrink: 0;
+            border-radius: 25px;
+            overflow: hidden;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0.4;
+            transform: scale(0.9);
+        }
+
+        .nav-card.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 25px 60px rgba(74, 144, 226, 0.4);
+        }
+
+        .nav-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.3), rgba(111, 177, 252, 0.2));
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 200px;
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-card:hover .nav-card-bg {
+            transform: scale(1.05);
+        }
+
+        .nav-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(11, 25, 41, 0.95) 0%, transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            padding: 50px;
+        }
+
+        .nav-card-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 56px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Fade effect on sides - much wider */
+        .nav-carousel::before,
+        .nav-carousel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 35%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .nav-carousel::before {
+            left: 0;
+            background: linear-gradient(to right, #0B1929 0%, rgba(11, 25, 41, 0.6) 50%, transparent 100%);
+        }
+
+        .nav-carousel::after {
+            right: 0;
+            background: linear-gradient(to left, #0B1929 0%, rgba(11, 25, 41, 0.6) 50%, transparent 100%);
+        }
+
+        /* Card specific colors and icons */
+        .nav-card:nth-child(1) .nav-card-bg {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.4), rgba(111, 177, 252, 0.3));
+        }
+
+        .nav-card:nth-child(2) .nav-card-bg {
+            background: linear-gradient(135deg, rgba(111, 177, 252, 0.4), rgba(74, 144, 226, 0.3));
+        }
+
+        .nav-card:nth-child(3) .nav-card-bg {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.35), rgba(111, 177, 252, 0.35));
+        }
+
+        .nav-card:nth-child(4) .nav-card-bg {
+            background: linear-gradient(135deg, rgba(111, 177, 252, 0.35), rgba(74, 144, 226, 0.4));
+        }
+
+        .nav-card:nth-child(5) .nav-card-bg {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.45), rgba(111, 177, 252, 0.25));
+        }
+
+        .nav-card:nth-child(6) .nav-card-bg {
+            background: linear-gradient(135deg, rgba(111, 177, 252, 0.45), rgba(74, 144, 226, 0.25));
+        }
+
+        /* Carousel dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(111, 177, 252, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-card {
+                max-width: 90vw;
+            }
+
+            .nav-card-title {
+                font-size: 36px;
+            }
+
+            .nav-card-bg {
+                font-size: 120px;
+            }
+
+            .nav-carousel::before,
+            .nav-carousel::after {
+                width: 25%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="site-header">
-    <a href="index.html">
-      <img src="logo.png" alt="Parsa logo" class="logo">
-    </a>
-  </header>
+    <div class="hero-background"></div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">P</div>
+        </div>
 
+        <div class="portrait-container">
+            <div class="portrait">👤</div>
+        </div>
 
+        <h1 class="hero-text">Hi, I'm Parsa</h1>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <img src="mee.jpg" alt="Photo of Parsa" class="hero-img" />
+        <div class="age-counter">
+            <div class="time" id="age"></div>
+        </div>
 
-    <h1>Hi, I’m Parsa.</h1>
-    <h2>I’m <span id="age">--</span></h2>
-  </section>
+        <div class="nav-carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <a href="#my-life" class="nav-card active">
+                    <div class="nav-card-bg">🌍</div>
+                    <div class="nav-card-overlay">
+                        <div class="nav-card-title">My Life</div>
+                    </div>
+                </a>
+                <a href="#achievements" class="nav-card">
+                    <div class="nav-card-bg">🏆</div>
+                    <div class="nav-card-overlay">
+                        <div class="nav-card-title">Achievements</div>
+                    </div>
+                </a>
+                <a href="#career" class="nav-card">
+                    <div class="nav-card-bg">💼</div>
+                    <div class="nav-card-overlay">
+                        <div class="nav-card-title">Career</div>
+                    </div>
+                </a>
+                <a href="#music" class="nav-card">
+                    <div class="nav-card-bg">🎵</div>
+                    <div class="nav-card-overlay">
+                        <div class="nav-card-title">Music</div>
+                    </div>
+                </a>
+                <a href="#sports" class="nav-card">
+                    <div class="nav-card-bg">⚽</div>
+                    <div class="nav-card-overlay">
+                        <div class="nav-card-title">Sports</div>
+                    </div>
+                </a>
+                <a href="#skills" class="nav-card">
+                    <div class="nav-card-bg">⚡</div>
+                    <div class="nav-card-overlay">
+                        <div class="nav-card-title">Skills</div>
+                    </div>
+                </a>
+            </div>
+            <div class="carousel-dots" id="carouselDots">
+                <div class="carousel-dot active" data-index="0"></div>
+                <div class="carousel-dot" data-index="1"></div>
+                <div class="carousel-dot" data-index="2"></div>
+                <div class="carousel-dot" data-index="3"></div>
+                <div class="carousel-dot" data-index="4"></div>
+                <div class="carousel-dot" data-index="5"></div>
+            </div>
+        </div>
+    </div>
 
-  <!-- NAV BUTTONS -->
-  <section class="nav-buttons">
-    <a href="life.html">My Life</a>
-    <a href="achievements.html">Achievements</a>
-    <a href="career.html">Career</a>
-    <a href="hobbies.html">Hobbies</a>
-    <a href="music.html">Music</a>
-  </section>
+    <script>
+        function calculateAge() {
+            // Birth date: August 19, 2008 at 4:05 PM Tehran time (IRST/IRDT)
+            // Tehran is UTC+3:30 (standard) or UTC+4:30 (daylight saving)
+            // Using UTC+3:30 as the standard offset
+            
+            const birthDate = new Date('2008-08-19T16:05:00+03:30');
+            const now = new Date();
+            
+            let years = now.getFullYear() - birthDate.getFullYear();
+            let months = now.getMonth() - birthDate.getMonth();
+            let days = now.getDate() - birthDate.getDate();
+            let hours = now.getHours() - birthDate.getHours();
+            let minutes = now.getMinutes() - birthDate.getMinutes();
+            let seconds = now.getSeconds() - birthDate.getSeconds();
+            
+            // Adjust for negative values
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+            }
+            
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            
+            if (hours < 0) {
+                hours += 24;
+                days--;
+            }
+            
+            if (days < 0) {
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+                months--;
+            }
+            
+            if (months < 0) {
+                months += 12;
+                years--;
+            }
+            
+            const ageText = `I'm ${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds old`;
+            document.getElementById('age').textContent = ageText;
+        }
+        
+        // Update immediately
+        calculateAge();
+        
+        // Update every second
+        setInterval(calculateAge, 1000);
 
-  <!-- CONTACT -->
-  <section class="contact">
-    <h3>Contact Me</h3>
-    <p>Email: <span class="muted">coming soon</span></p>
-  </section>
+        // Carousel functionality
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const cards = document.querySelectorAll('.nav-card');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = cards.length;
 
-  <script src="script.js"></script>
+        function updateCarousel() {
+            // Get viewport width and card width
+            const viewportWidth = window.innerWidth;
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 40;
+            
+            // Calculate offset to center the active card
+            const centerOffset = (viewportWidth - cardWidth) / 2;
+            const slideOffset = currentSlide * (cardWidth + gap);
+            const offset = centerOffset - slideOffset;
+            
+            track.style.transform = `translateX(${offset}px)`;
+            
+            // Update active states
+            cards.forEach((card, index) => {
+                if (index === currentSlide) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Auto-advance every 5 seconds
+        let autoSlideInterval = setInterval(nextSlide, 5000);
+
+        // Dot navigation
+        dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                goToSlide(index);
+                // Reset auto-slide timer
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, 5000);
+            });
+        });
+
+        // Update carousel on window resize
+        window.addEventListener('resize', updateCarousel);
+
+        // Initial update
+        updateCarousel();
+    </script>
 </body>
 </html>
