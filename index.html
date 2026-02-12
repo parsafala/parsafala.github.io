@@ -145,6 +145,14 @@
         }
 
         /* Hero text */
+        #changing-text {
+    /* Smooth transition for opacity changes */
+        transition: opacity 0.5s ease-in-out; 
+        opacity: 1;
+        }
+        .fade-out {
+            opacity: 0;
+        }
         .hero-text {
             font-family: 'Lexend', sans-serif;
             font-size: clamp(48px, 10vw, 96px);
