@@ -111,12 +111,14 @@
         }
 
         /* Portrait */
-       .portrait-container {
+        .portrait-container {
             text-align: center;
             margin-bottom: 20px;
             animation: scaleIn 1s ease-out 0.2s backwards;
-            position: relative;
-            height: calc(30vh);
+            min-height: 400px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
         }
 
         @keyframes scaleIn {
@@ -124,14 +126,11 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-       .portrait {
+        .portrait {
             width: 600px;
             height: auto;
             margin: 0 auto 0;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
         }
 
         .portrait img {
@@ -153,7 +152,6 @@
             font-family: 'Lexend', sans-serif;
             font-size: clamp(48px, 10vw, 96px);
             text-align: center;
-            margin-top: 30px;  /* ADD THIS LINE */
             margin-bottom: 15px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
