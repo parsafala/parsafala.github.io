@@ -28,13 +28,14 @@
             overflow-x: hidden;
             position: relative;
         }
-                /* Hero background section */
+
+        /* Hero background section */
         .hero-background {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 30%;
+            height: 30vh;
             opacity: 0.25;
             background-image: url('Topbg.jpeg');
             background-size: cover;
@@ -67,9 +68,8 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: calc(30vh + 20px) 20px 20px;
+            padding: 0 20px 20px;
             animation: fadeIn 1s ease-out;
-            position: relative;
         }
 
         @keyframes fadeIn {
@@ -112,21 +112,15 @@
         }
 
         /* Portrait */
-       .portrait-container {
+        .portrait-container {
             text-align: center;
-            margin-bottom: 0;
-            animation: scaleIn 1s ease-out 0.2s backwards;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
             height: 30vh;
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            z-index: 1;
-            pointer-events: none;
+            animation: scaleIn 1s ease-out 0.2s backwards;
         }
+
         @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
@@ -137,7 +131,6 @@
             height: auto;
             margin: 0;
             position: relative;
-            pointer-events: auto;
         }
 
         .portrait img {
@@ -146,27 +139,24 @@
             display: block;
         }
 
-        .portrait::before {
-            display: none;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
         /* Hero text */
-      .hero-text {
+        .hero-text {
             font-family: 'Lexend', sans-serif;
             font-size: clamp(48px, 10vw, 96px);
             text-align: center;
-            margin-bottom: 15px;
+            margin: 30px 0 15px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 1px;
             font-weight: 600;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        
         .hero-text.fade {
             animation: fadeInOut 0.4s ease-in-out;
         }
@@ -280,7 +270,7 @@
             z-index: 2;
         }
 
-        /* Fade effect on sides - much wider */
+        /* Fade effect on sides */
         .nav-carousel::before,
         .nav-carousel::after {
             content: '';
@@ -302,7 +292,7 @@
             background: linear-gradient(to left, #0B1929 0%, rgba(11, 25, 41, 0.6) 50%, transparent 100%);
         }
 
-        /* Card specific colors and icons */
+        /* Card specific colors */
         .nav-card:nth-child(1) .nav-card-bg {
             background: linear-gradient(135deg, rgba(74, 144, 226, 0.4), rgba(111, 177, 252, 0.3));
         }
@@ -367,6 +357,10 @@
             .nav-carousel::before,
             .nav-carousel::after {
                 width: 25%;
+            }
+
+            .portrait {
+                width: 400px;
             }
         }
     </style>
@@ -441,11 +435,7 @@
     </div>
 
     <script>
-            function calculateAge() {
-            // Birth date: August 19, 2008 at 4:05 PM Tehran time (IRST/IRDT)
-            // Tehran is UTC+3:30 (standard) or UTC+4:30 (daylight saving)
-            // Using UTC+3:30 as the standard offset
-            
+        function calculateAge() {
             const birthDate = new Date('2008-08-19T16:05:00+03:30');
             const now = new Date();
             
@@ -456,7 +446,6 @@
             let minutes = now.getMinutes() - birthDate.getMinutes();
             let seconds = now.getSeconds() - birthDate.getSeconds();
             
-            // Adjust for negative values
             if (seconds < 0) {
                 seconds += 60;
                 minutes--;
@@ -487,10 +476,7 @@
             document.getElementById('age').textContent = ageText;
         }
         
-        // Update immediately
         calculateAge();
-        
-        // Update every second
         setInterval(calculateAge, 1000);
 
         // Carousel functionality
@@ -501,19 +487,16 @@
         const totalSlides = cards.length;
 
         function updateCarousel() {
-            // Get viewport width and card width
             const viewportWidth = window.innerWidth;
             const cardWidth = cards[0].offsetWidth;
             const gap = 40;
             
-            // Calculate offset to center the active card
             const centerOffset = (viewportWidth - cardWidth) / 2;
             const slideOffset = currentSlide * (cardWidth + gap);
             const offset = centerOffset - slideOffset;
             
             track.style.transform = `translateX(${offset}px)`;
             
-            // Update active states
             cards.forEach((card, index) => {
                 if (index === currentSlide) {
                     card.classList.add('active');
@@ -541,36 +524,30 @@
             updateCarousel();
         }
 
-        // Auto-advance every 5 seconds
         let autoSlideInterval = setInterval(nextSlide, 4000);
 
-        // Dot navigation
         dots.forEach((dot) => {
             dot.addEventListener('click', () => {
                 const index = parseInt(dot.getAttribute('data-index'));
                 goToSlide(index);
-                // Reset auto-slide timer
                 clearInterval(autoSlideInterval);
                 autoSlideInterval = setInterval(nextSlide, 4000);
             });
         });
 
-        // Update carousel on window resize
         window.addEventListener('resize', updateCarousel);
-
-        // Initial update
         updateCarousel();
         
-                // Multilingual greeting rotation
+        // Multilingual greeting rotation
         const greetings = [
             "Hi, I'm Parsa",
-            "سلام، من پارسا هستم",  // Persian
-            "Hola, soy Parsa",  // Spanish
-            "Bonjour, je suis Parsa",  // French
-            "Ciao, sono Parsa",  // Italian
-            "こんにちは、私はパルサです",  // Japanese
-            "你好，我是帕尔萨",  // Chinese
-            "Hallo, ich bin Parsa",  // German
+            "سلام، من پارسا هستم",
+            "Hola, soy Parsa",
+            "Bonjour, je suis Parsa",
+            "Ciao, sono Parsa",
+            "こんにちは、私はパルサです",
+            "你好，我是帕尔萨",
+            "Hallo, ich bin Parsa",
         ];
         
         let currentGreetingIndex = 0;
