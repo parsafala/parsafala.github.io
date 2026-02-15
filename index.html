@@ -34,7 +34,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 37.8%;
+            height: 20%;
             opacity: 0.25;
             background-image: url('Topbg.jpeg');
             background-size: cover;
@@ -532,7 +532,7 @@
         }
 
         // Auto-advance every 5 seconds
-        let autoSlideInterval = setInterval(nextSlide, 5000);
+        let autoSlideInterval = setInterval(nextSlide, 4000);
 
         // Dot navigation
         dots.forEach((dot) => {
@@ -541,7 +541,7 @@
                 goToSlide(index);
                 // Reset auto-slide timer
                 clearInterval(autoSlideInterval);
-                autoSlideInterval = setInterval(nextSlide, 5000);
+                autoSlideInterval = setInterval(nextSlide, 4000);
             });
         });
 
